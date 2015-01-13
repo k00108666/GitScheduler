@@ -81,21 +81,13 @@ public final void doConnect() {
                  rs2 = stmt.executeQuery(sql);
                  // rs.close();
                  //   stmt.close();
+                 
          
           
              } catch (SQLException ex) {
                  Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
                
-             }    finally{
-                 
-                 
-                 try {
-                    if (con != null) con.close();
-                    if(stmt!= null) stmt.close();
-                 } catch (SQLException ex) {
-                      JOptionPane.showMessageDialog(null, "Could not load schedule template");
-                 }
-             }
+             }   
       
            
              
@@ -105,6 +97,17 @@ public final void doConnect() {
              
              
              
+            
+       
+   
+               
+           } 
+   
+   
+ 
+            public  void createSchedule() {
+                
+                
               try {
                  this.doConnect();;
                   SchedulerGUI gui = new SchedulerGUI();
@@ -116,32 +119,29 @@ public final void doConnect() {
               System.out.println(Integer.toString(WeekNum));
             int year = cal.get(Calendar.YEAR);
                        System.out.println(Integer.toString(year));
-           String DatabaseString = "SELECT * FROM " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);
+           String DatabaseString = "CREATE TABLE " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum) + " (PeriodNum INT DEFAULT 1  NOT NULL, Monday VARCHAR(30), Tuesday VARCHAR(30), Wednesday VARCHAR(30), Thursday VARCHAR(30), Friday VARCHAR(30), Saturday VARCHAR(30), Sunday VARCHAR(30), PRIMARY KEY (PeriodNum))";
                  System.out.println(DatabaseString);
                 
-                 rs = stmt.executeQuery(DatabaseString);
+                stmt.executeUpdate(DatabaseString);
              } catch (SQLException ex) {
-                 
-                  JOptionPane.showMessageDialog(null, "I'm sorry but no schedule exists. Please create one for the selected week");
+                 Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
+                  JOptionPane.showMessageDialog(null, "This schedule already exists. Please update it or select another week.");
              }   finally{
                  
                  
                  try {
-                    if (con != null) con.close();
-                    if(stmt!= null) stmt.close();
+                  con.close();
+                    stmt.close();
                  } catch (SQLException ex) {
                      Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
                  }
              }
       
-       
-   
-               
-           } 
-   
-   
- 
-               
+            }   
+            
+            
+            
+            
 
 
    }
