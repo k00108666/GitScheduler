@@ -92,6 +92,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
                
       //Connection  con = method.con;
      ResultSet rs2 = method.rs2;
+     
         
      if (rs2!=null)JTableSchedule.setModel(DbUtils.resultSetToTableModel(rs2));
      
@@ -313,7 +314,8 @@ System.out.println(JCalendar.getDate());// TODO add your handling code here:
 
     private void JNewButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JNewButtonMouseClicked
     
-            loadDefaultTable();
+           Methods method = new Methods();
+           method.createSchedule();
         
     }//GEN-LAST:event_JNewButtonMouseClicked
 
