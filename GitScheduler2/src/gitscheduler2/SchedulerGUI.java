@@ -29,6 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import jdk.nashorn.internal.objects.Global;
 import net.proteanit.sql.DbUtils;
 
 
@@ -49,11 +50,14 @@ public class SchedulerGUI extends javax.swing.JFrame {
   
     
     Statement stmt;
+  public static Date date;
+  
    
     
     public SchedulerGUI() {
         initComponents();
-        
+      
+       
         
         
         
@@ -255,7 +259,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
     private void JCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JCalendarPropertyChange
 
         
-
+date = JCalendar.getDate();
 System.out.println(JCalendar.getDate());// TODO add your handling code here:
        
         
@@ -320,14 +324,13 @@ System.out.println(JCalendar.getDate());// TODO add your handling code here:
     }//GEN-LAST:event_JNewButtonMouseClicked
 
     
-  public Date setSelectedDate() {
+  public    Date getSelectedDate() {
     Calendar cal = Calendar.getInstance();
-   
-
-     cal.setTime(JCalendar.getDate());
-       Date Date3 = cal.getTime();
-   
-        return Date3;
+    
+       cal.setTime(JCalendar.getDate());
+      date = cal.getTime();
+   System.out.println(date);
+        return date;
         
         
       
