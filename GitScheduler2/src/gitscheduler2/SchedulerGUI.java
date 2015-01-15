@@ -89,27 +89,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
         }
         
         
-        public void loadDefaultTable() {
-            
-            
-               Methods method = new Methods();
-               
-      //Connection  con = method.con;
-     ResultSet rs2 = method.rs2;
-     
         
-     if (rs2!=null)JTableSchedule.setModel(DbUtils.resultSetToTableModel(rs2));
-     
-     
-     try {
-         if (rs2!=null)rs2.close();
-     } catch (Exception ex) {
-          Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     
-        
-        
-        }
     
     
     
@@ -261,7 +241,23 @@ public class SchedulerGUI extends javax.swing.JFrame {
         
 date = JCalendar.getDate();
 System.out.println(JCalendar.getDate());// TODO add your handling code here:
-       
+ 
+
+Methods method = new Methods();
+
+try{
+method.getSelectedDb();}
+catch (Exception ex) {
+    
+    try {
+        method.getDefaultSchedule();
+    } catch (SQLException ex1) {
+        Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
+    }
+    
+}
+
+//JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));
         
            
         
