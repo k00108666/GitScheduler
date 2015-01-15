@@ -29,7 +29,7 @@ public  class Methods {
     Statement stmt;
    
     PreparedStatement pst;
-    ResultSet rs;
+     ResultSet rs;
     ResultSet rs2;
     String sql;
   
@@ -65,44 +65,7 @@ public final void doConnect() {
     
     
     
-   public  Methods() {
-            
-       
-       
-    // this.doConnect();
-      
-        
-         
-         
-             try {
-                 this.doConnect();
-                stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 sql = "SELECT * FROM schedule";
-                 rs2 = stmt.executeQuery(sql);
-                 // rs.close();
-                 //   stmt.close();
-                 
-         
-          
-             } catch (SQLException ex) {
-                 Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
-               
-             }   
-      
-           
-             
-             
-             
-             
-             
-             
-             
-            
-       
-   
-               
-           } 
-   
+  
    
  
             public  void createSchedule() {
@@ -125,25 +88,63 @@ public final void doConnect() {
              } catch (SQLException ex) {
                  Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
                   JOptionPane.showMessageDialog(null, "This schedule already exists. Please update it or select another week.");
-             }   finally{
-                 
-                 
-                 try {
-                  con.close();
-                    stmt.close();
-                 } catch (SQLException ex) {
-                     Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-             }
-      
+             }   
             }   
             
             
+            public void  getSelectedDb() throws SQLException {
+         
+                
+                
+                         
+                
+                 
+         
+                        this.doConnect();
+                      stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                //SchedulerGUI gui = new SchedulerGUI();
+                 Calendar cal = Calendar.getInstance();
+                    cal.setTime(SchedulerGUI.date);
+                 int WeekNum = cal.get(Calendar.WEEK_OF_YEAR);
+                 int year = cal.get(Calendar.YEAR);
+                      
+                 String DatabaseString = "SELECT * FR0M " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
+                 System.out.println(DatabaseString);
+                
+                  rs = stmt.executeQuery(DatabaseString);
+                    }
+                    
+                    
+                    
+                 
+                 
+                 
+                               
+                    
+  
             
-            
+               public void getDefaultSchedule() throws SQLException {
+                   
+                     this.doConnect();
+                      stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                     String DatabaseString = "SELECT * FROM schedule";  
+                 System.out.println(DatabaseString);
+                
+                 rs = stmt.executeQuery(DatabaseString);
+                    }
+                  
+                   
+                     
+                    
+             }
+                     
+                     
+                     
+               
 
 
-   }
+
+
         
 
     

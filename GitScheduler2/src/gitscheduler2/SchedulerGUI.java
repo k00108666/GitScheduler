@@ -246,13 +246,28 @@ System.out.println(JCalendar.getDate());// TODO add your handling code here:
 Methods method = new Methods();
 
 try{
-method.getSelectedDb();}
-catch (Exception ex) {
-    
+method.getSelectedDb();
+JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs2));
+}
+catch (SQLException ex) {
+   Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
     try {
+        
         method.getDefaultSchedule();
-    } catch (SQLException ex1) {
+        JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));}
+    
+     catch (SQLException ex1) {
         Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
+    } finally {
+        try{
+            method.con.close();
+            method.stmt.close();
+            method.rs.close();
+        } catch (Exception ex1) {
+            
+             Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
+        }
+        
     }
     
 }
