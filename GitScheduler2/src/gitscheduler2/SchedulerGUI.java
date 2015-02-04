@@ -51,7 +51,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
     
     Statement stmt;
   public static Date date;
-  
+  public static Object tableData;
    
     
     public SchedulerGUI() {
@@ -83,6 +83,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
         try {
             if (rs!=null)rs.close();
         } catch (Exception ex) {
+            
             Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
       
@@ -110,6 +111,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
         JCalendar = new com.toedter.calendar.JCalendar();
         JButtonLoad = new javax.swing.JButton();
         JNewButton = new javax.swing.JButton();
+        JButtonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,6 +191,18 @@ public class SchedulerGUI extends javax.swing.JFrame {
                 JNewButtonMouseClicked(evt);
             }
         });
+        JNewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JNewButtonActionPerformed(evt);
+            }
+        });
+
+        JButtonSave.setText("Save");
+        JButtonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JButtonSaveMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout WorkingsPanelLayout = new javax.swing.GroupLayout(WorkingsPanel);
         WorkingsPanel.setLayout(WorkingsPanelLayout);
@@ -197,18 +211,23 @@ public class SchedulerGUI extends javax.swing.JFrame {
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
+                        .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)
+                        .addComponent(JButtonSave))
                     .addGroup(WorkingsPanelLayout.createSequentialGroup()
                         .addComponent(JButtonLoad)
                         .addGap(36, 36, 36)
                         .addComponent(JNewButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(506, Short.MAX_VALUE))
         );
         WorkingsPanelLayout.setVerticalGroup(
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonSave))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JButtonLoad)
@@ -245,16 +264,21 @@ System.out.println(JCalendar.getDate());// TODO add your handling code here:
 
 Methods method = new Methods();
 
+
+
 try{
 method.getSelectedDb();
-JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs2));
+//if (method.rs != null){
+JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));
 }
 catch (SQLException ex) {
+ 
    Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
     try {
         
         method.getDefaultSchedule();
-        JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));}
+        if (method.rs != null){
+        JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));}}
     
      catch (SQLException ex1) {
         Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
@@ -334,6 +358,16 @@ catch (SQLException ex) {
         
     }//GEN-LAST:event_JNewButtonMouseClicked
 
+    private void JButtonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JButtonSaveMouseClicked
+        // TODO add your handling code here:
+     
+        
+    }//GEN-LAST:event_JButtonSaveMouseClicked
+
+    private void JNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JNewButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JNewButtonActionPerformed
+
     
   public    Date getSelectedDate() {
     Calendar cal = Calendar.getInstance();
@@ -348,7 +382,8 @@ catch (SQLException ex) {
         
         
     }
-    
+  
+  
   
  
     
@@ -414,6 +449,7 @@ catch (SQLException ex) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonLoad;
+    private javax.swing.JButton JButtonSave;
     private com.toedter.calendar.JCalendar JCalendar;
     private javax.swing.JButton JNewButton;
     private javax.swing.JTable JTableSchedule;
