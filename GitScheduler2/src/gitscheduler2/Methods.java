@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -25,7 +26,7 @@ import net.proteanit.sql.DbUtils;
  */
 public  class Methods {
     
-     Connection con;
+   public  Connection con;
     Statement stmt;
    
     PreparedStatement pst;
@@ -85,6 +86,13 @@ public final void doConnect() {
                  System.out.println(DatabaseString);
                 
              stmt.executeUpdate(DatabaseString);
+             
+             
+             for (int x = 1; x < 11; x++) {
+             String DatabaseString2 = "INSERT INTO " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum) + " (PeriodNum, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday) VALUES (" + Integer.toString(x) + " , Default, Default, Default, Default, Default, Default, Default)" ;
+             stmt.executeUpdate(DatabaseString2);
+             };
+              
              } catch (SQLException ex) {
                  Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
                   JOptionPane.showMessageDialog(null, "This schedule already exists. Please update it or select another week.");
@@ -108,10 +116,27 @@ public final void doConnect() {
                  int WeekNum = cal.get(Calendar.WEEK_OF_YEAR);
                  int year = cal.get(Calendar.YEAR);
                       
-                 String DatabaseString = "SELECT * FR0M " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
-                 System.out.println(DatabaseString);
+     
+                 
+                 String selectedDb = "SELECT * FROM " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
+          
+
+            //String sql     = "UPDATE student SET firstName = ? "
+            //       + " Set lastName = ?, "
+            //       + " WHERE studentID = 456987";
+              System.out.println(selectedDb);
+             
+            rs = stmt.executeQuery(selectedDb);
+           
+                 //String selectedDb = "SELECT * FR0M ?" + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
+                // System.out.println(selectedDb);
                 
-                  rs = stmt.executeQuery(DatabaseString);
+                 
+                // rs = pst.executeQuery();
+                 
+                 
+                 // rs = stmt.executeQuery(selectedDb);
+                  //System.out.print(rs);
                     }
                     
                     
@@ -131,9 +156,43 @@ public final void doConnect() {
                  System.out.println(DatabaseString);
                 
                  rs = stmt.executeQuery(DatabaseString);
+                  System.out.print(rs);
                     }
                   
+                 
+               public void updateDb() throws SQLException {
                    
+                   
+                   this.doConnect();
+               
+                 stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                //SchedulerGUI gui = new SchedulerGUI();
+                 Calendar cal = Calendar.getInstance();
+                  
+                    cal.setTime(SchedulerGUI.date);
+                 int WeekNum = cal.get(Calendar.WEEK_OF_YEAR);
+                 int year = cal.get(Calendar.YEAR);
+               
+                   
+                 
+                 
+                 
+                 
+                 String sql = "UPDATE " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum) + " SET " + SchedulerGUI.colName + " = " + SchedulerGUI.newData + " WHERE PeriodNum = " + SchedulerGUI.periodNum;
+                 
+              
+                 
+              
+                 
+                 
+                
+           
+            
+              stmt.executeUpdate(sql);
+            
+                   
+               }
+               
                      
                     
              }
