@@ -73,7 +73,7 @@
                     <Column editable="true" title="Title 4" type="java.lang.Object"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="JTableSchedule.getModel().addTableModelListener(new TableModelListener()  {&#xa;                &#xa;                &#xa;                public void tableChanged(TableModelEvent e) {&#xa;                &#xa;                    Methods method = new Methods();&#xa;                   System.out.println(&quot;seamy&quot;);&#xa;                    &#xa;                    &#xa;            }&#xa;         &#xa;});">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
@@ -101,6 +101,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="JTableSchedulePropertyChange"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -158,6 +161,9 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JCalendarKeyPressed"/>
             <EventHandler event="vetoableChange" listener="java.beans.VetoableChangeListener" parameters="java.beans.PropertyChangeEvent" handler="JCalendarVetoableChange"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="JTableSchedule.getModel().addTableModelListener(new TableModelListener()  {&#xa;                &#xa;                &#xa;                public void tableChanged(TableModelEvent e) {&#xa;                &#xa;                    Methods method = new Methods();&#xa;                   System.out.println(&quot;seamy&quot;);&#xa;                    &#xa;                    &#xa;            }&#xa;         &#xa;});"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="JButtonLoad">
           <Properties>
@@ -183,6 +189,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JButtonSaveMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonSaveActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
