@@ -446,26 +446,54 @@ catch (SQLException ex) {
 
     private void JTableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableScheduleMouseClicked
         // TODO add your handling code here:
-        
-         
+    
            
     }//GEN-LAST:event_JTableScheduleMouseClicked
 
     
-  public    Date getSelectedDate() {
-    Calendar cal = Calendar.getInstance();
-    
-       cal.setTime(JCalendar.getDate());
-      date = cal.getTime();
-   System.out.println(date);
-        return date;
+ 
+  
+  
+   public    void getColName() {
+       int columnIndex = JTableSchedule.getSelectedColumn();
+        int rowIndex = JTableSchedule.getSelectedRow();
+       colName = JTableSchedule.getColumnName(columnIndex);
+   
         
         
-      
+           
         
         
     }
-  
+   
+   public    void getPeriodNum() {
+       int columnIndex = JTableSchedule.getSelectedColumn();
+        int rowIndex = JTableSchedule.getSelectedRow();
+       colName = JTableSchedule.getColumnName(columnIndex);
+ 
+       
+        periodNum = JTableSchedule.getValueAt(rowIndex, 0).toString();
+       
+                 
+       
+        
+    }
+   
+   public void getNewData()  {
+
+       
+         int columnIndex = JTableSchedule.getSelectedColumn();
+        int rowIndex = JTableSchedule.getSelectedRow();
+        newData = JTableSchedule.getValueAt(rowIndex, columnIndex).toString();
+      
+       
+       
+    
+       
+       
+       
+       
+   }
   
   
  
@@ -477,6 +505,11 @@ catch (SQLException ex) {
        @Override 
        public void tableChanged(TableModelEvent tme) {
           
+               getColName();
+        getPeriodNum();
+        getNewData();
+         
+           
             System.out.println("DataChanged");
            Methods method = new Methods();
             try {
