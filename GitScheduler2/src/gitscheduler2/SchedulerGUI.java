@@ -33,7 +33,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import jdk.nashorn.internal.objects.Global;
 import net.proteanit.sql.DbUtils;
-
+import javax.swing.event.*;
+import javax.swing.table.TableModel;
 
 
 
@@ -57,13 +58,15 @@ public class SchedulerGUI extends javax.swing.JFrame {
   public static String newData;
   public static String colName;
   public static String periodNum;
+
+  
   
 
   
     public SchedulerGUI() {
         initComponents();
       
-       
+            JTableSchedule.getModel().addTableModelListener(new TableListener());
         
         
         
@@ -76,17 +79,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
     
     
              
-      private void getValues () {  
-        int columnName = JTableSchedule.getSelectedColumn();
-        int rowName = JTableSchedule.getSelectedRow();
-        
-        
-       newData = (String) JTableSchedule.getValueAt(columnName, rowName);
-                  colName = JTableSchedule.getColumnName(columnName);
-             periodNum = JTableSchedule.getValueAt(rowName, 0).toString();
-           
-          
-      }
+      
         
         public  void loadTable()  {
         
@@ -100,7 +93,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
             if (rs!=null)rs.close();
         } catch (Exception ex) {
             
-            Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("GUI.loadTableError");
         }
       
         }
@@ -148,6 +141,11 @@ public class SchedulerGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTableSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTableScheduleMouseClicked(evt);
+            }
+        });
         JTableSchedule.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 JTableSchedulePropertyChange(evt);
@@ -310,7 +308,8 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
     private void JCalendarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JCalendarPropertyChange
 
-        
+
+                  
 date = JCalendar.getDate();
 System.out.println(JCalendar.getDate());// TODO add your handling code here:
 
@@ -325,7 +324,8 @@ JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));
 }
 catch (SQLException ex) {
  
-   Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
+   System.out.println("No database exists to select");
+   
     try {
         
         method.getDefaultSchedule();
@@ -427,21 +427,15 @@ catch (SQLException ex) {
     }//GEN-LAST:event_JTableSchedulePropertyChange
 
     private void JButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonSaveActionPerformed
-
+      
         Methods method = new Methods();
-        
-        try {
-            method.updateDb();
-        } catch (SQLException ex) {
-            method.createSchedule();
-            
-        }
+      
         try {
         //method.createSchedule();
         method.updateDb();
-        JOptionPane.showMessageDialog(this, "Saved");
-        } catch (Exception ex2)   {
-            
+     
+        } catch (SQLException ex2)   {
+            System.out.println("Broke at GUI.JButtonSavedActionPerformed");
                 Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex2);
             
         }
@@ -449,6 +443,13 @@ catch (SQLException ex) {
         
         
     }//GEN-LAST:event_JButtonSaveActionPerformed
+
+    private void JTableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableScheduleMouseClicked
+        // TODO add your handling code here:
+        
+         
+           
+    }//GEN-LAST:event_JTableScheduleMouseClicked
 
     
   public    Date getSelectedDate() {
@@ -469,6 +470,24 @@ catch (SQLException ex) {
   
  
     
+  
+  
+  public  class TableListener implements TableModelListener  {
+      
+       @Override 
+       public void tableChanged(TableModelEvent tme) {
+          
+            System.out.println("DataChanged");
+           Methods method = new Methods();
+            try {
+                method.updateDb();
+            } catch (SQLException ex) {
+                Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     } //end method
+
+  } //end class
+
     /**
      * @param args the command line arguments
      */
