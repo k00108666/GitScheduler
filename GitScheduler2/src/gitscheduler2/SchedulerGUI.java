@@ -124,12 +124,13 @@ public class SchedulerGUI extends javax.swing.JFrame {
         JTableSchedule = new javax.swing.JTable();
         WorkingsPanel = new javax.swing.JPanel();
         JCalendar = new com.toedter.calendar.JCalendar();
-        JButtonLoad = new javax.swing.JButton();
-        JNewButton = new javax.swing.JButton();
-        JButtonSave = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        JTableSchedule.getModel().addTableModelListener(new TableListener());
         JTableSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -208,41 +209,11 @@ public class SchedulerGUI extends javax.swing.JFrame {
             }
         });
 
-        JButtonLoad.setText("Load Schedule");
-        JButtonLoad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JButtonLoadMouseClicked(evt);
-            }
-        });
-        JButtonLoad.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                JButtonLoadPropertyChange(evt);
-            }
-        });
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
-        JNewButton.setText("New Database");
-        JNewButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JNewButtonMouseClicked(evt);
-            }
-        });
-        JNewButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JNewButtonActionPerformed(evt);
-            }
-        });
-
-        JButtonSave.setText("Save");
-        JButtonSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JButtonSaveMouseClicked(evt);
-            }
-        });
-        JButtonSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JButtonSaveActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Weekly Notes");
 
         javax.swing.GroupLayout WorkingsPanelLayout = new javax.swing.GroupLayout(WorkingsPanel);
         WorkingsPanel.setLayout(WorkingsPanelLayout);
@@ -250,29 +221,26 @@ public class SchedulerGUI extends javax.swing.JFrame {
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
-                        .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123)
-                        .addComponent(JButtonSave))
-                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
-                        .addComponent(JButtonLoad)
-                        .addGap(36, 36, 36)
-                        .addComponent(JNewButton)))
-                .addContainerGap(506, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
         WorkingsPanelLayout.setVerticalGroup(
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JButtonSave))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JButtonLoad)
-                    .addComponent(JNewButton))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2))
+                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
+                        .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 278, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         JTableSchedule.getModel().addTableModelListener(new TableModelListener()  {
@@ -354,23 +322,6 @@ catch (SQLException ex) {
         
     }//GEN-LAST:event_JCalendarPropertyChange
 
-    private void JButtonLoadPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JButtonLoadPropertyChange
-        // TODO add your handling code here:
-        
-        
-        
-        
-    }//GEN-LAST:event_JButtonLoadPropertyChange
-
-    private void JButtonLoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JButtonLoadMouseClicked
-        // TODO add your handling code here:
-        
-        loadTable();
-        
-        
-     
-    }//GEN-LAST:event_JButtonLoadMouseClicked
-
     private void JCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCalendarMouseClicked
 
         
@@ -403,46 +354,11 @@ catch (SQLException ex) {
        
     }//GEN-LAST:event_JCalendarInputMethodTextChanged
 
-    private void JNewButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JNewButtonMouseClicked
-    
-           Methods method = new Methods();
-           method.createSchedule();
-        
-    }//GEN-LAST:event_JNewButtonMouseClicked
-
-    private void JButtonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JButtonSaveMouseClicked
-        // TODO add your handling code here:
-     
-        
-    }//GEN-LAST:event_JButtonSaveMouseClicked
-
-    private void JNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JNewButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JNewButtonActionPerformed
-
     private void JTableSchedulePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JTableSchedulePropertyChange
         // TODO add your handling code here:
         
               
     }//GEN-LAST:event_JTableSchedulePropertyChange
-
-    private void JButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonSaveActionPerformed
-      
-        Methods method = new Methods();
-      
-        try {
-        //method.createSchedule();
-        method.updateDb();
-     
-        } catch (SQLException ex2)   {
-            System.out.println("Broke at GUI.JButtonSavedActionPerformed");
-                Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex2);
-            
-        }
-      
-        
-        
-    }//GEN-LAST:event_JButtonSaveActionPerformed
 
     private void JTableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableScheduleMouseClicked
         // TODO add your handling code here:
@@ -513,13 +429,24 @@ catch (SQLException ex) {
             System.out.println("DataChanged");
            Methods method = new Methods();
             try {
+              
                 method.updateDb();
-            } catch (SQLException ex) {
-                Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex1) {
+                Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
+                  
+                method.createSchedule();
+            }
+           
+                   try {
+                       method.updateDb();
+                   } catch (SQLException ex) {
+                       Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+              
             }
      } //end method
 
-  } //end class
+   //end class
 
     /**
      * @param args the command line arguments
@@ -585,13 +512,13 @@ catch (SQLException ex) {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JButtonLoad;
-    private javax.swing.JButton JButtonSave;
     private com.toedter.calendar.JCalendar JCalendar;
-    private javax.swing.JButton JNewButton;
     private javax.swing.JTable JTableSchedule;
     private javax.swing.JPanel TablePanel;
     private javax.swing.JPanel WorkingsPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

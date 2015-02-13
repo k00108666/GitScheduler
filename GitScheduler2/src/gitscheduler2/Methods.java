@@ -178,7 +178,7 @@ public final void doConnect() {
                  
                  
                  
-                 String sql = "UPDATE " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum) + " SET " + SchedulerGUI.colName + " = " + SchedulerGUI.newData + " WHERE PeriodNum = " + SchedulerGUI.periodNum;
+                 String sql = "UPDATE " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum) + " SET " + SchedulerGUI.colName + " ='" + SchedulerGUI.newData + "' WHERE PeriodNum = " + SchedulerGUI.periodNum;
                  
               System.out.println(sql);
                  
