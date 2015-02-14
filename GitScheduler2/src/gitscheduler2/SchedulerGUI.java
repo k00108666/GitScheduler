@@ -58,7 +58,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
   public static String newData;
   public static String colName;
   public static String periodNum;
-
+  public static String notes;
   
   
 
@@ -67,9 +67,41 @@ public class SchedulerGUI extends javax.swing.JFrame {
         initComponents();
       
             JTableSchedule.getModel().addTableModelListener(new TableListener());
+            JTextAreaNotes.getDocument().addDocumentListener(new DocumentListener() {
+
+              @Override
+        public void insertUpdate(DocumentEvent de) {
+           save();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent de) {
+            save();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent de) {
+            save();
+        }
         
+        public void save () {
+            
+            SerializeMethods serialize = new SerializeMethods();
+            notes = JTextAreaNotes.getText();
+            serialize.SerializeNotes();
+            
+            
+        }
         
+       
+       
+        });
         
+         WeatherMethods weather = new WeatherMethods();
+         weather.getWeather();
+         tempLabel.setText(weather.temp + weather.measurement);
+         conditionsLabel.setText(weather.condition);
+            
     }
 
     
@@ -125,12 +157,18 @@ public class SchedulerGUI extends javax.swing.JFrame {
         WorkingsPanel = new javax.swing.JPanel();
         JCalendar = new com.toedter.calendar.JCalendar();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        JTextAreaNotes = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        WeatherPanel = new javax.swing.JPanel();
+        tempLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        conditionsLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         JTableSchedule.getModel().addTableModelListener(new TableListener());
+        JTableSchedule.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         JTableSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -168,7 +206,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
         TablePanel.setLayout(TablePanelLayout);
         TablePanelLayout.setHorizontalGroup(
             TablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         TablePanelLayout.setVerticalGroup(
             TablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,9 +247,9 @@ public class SchedulerGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        JTextAreaNotes.setColumns(20);
+        JTextAreaNotes.setRows(5);
+        jScrollPane2.setViewportView(JTextAreaNotes);
 
         jLabel1.setText("Weekly Notes");
 
@@ -239,7 +277,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane2))
                     .addGroup(WorkingsPanelLayout.createSequentialGroup()
                         .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 278, Short.MAX_VALUE)))
+                        .addGap(0, 239, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -254,13 +292,56 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
         });
 
+        tempLabel.setText("Could not load temperature.");
+
+        jLabel2.setText("Todays temperature:");
+
+        jLabel3.setText("Weather conditions:");
+
+        conditionsLabel.setText("Could not load conditions.");
+
+        javax.swing.GroupLayout WeatherPanelLayout = new javax.swing.GroupLayout(WeatherPanel);
+        WeatherPanel.setLayout(WeatherPanelLayout);
+        WeatherPanelLayout.setHorizontalGroup(
+            WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WeatherPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tempLabel))
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(conditionsLabel)))
+                .addContainerGap(786, Short.MAX_VALUE))
+        );
+        WeatherPanelLayout.setVerticalGroup(
+            WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WeatherPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tempLabel)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(conditionsLabel))
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(WorkingsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(WorkingsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(WeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -268,7 +349,10 @@ public class SchedulerGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(WorkingsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(WorkingsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(WeatherPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -282,7 +366,7 @@ date = JCalendar.getDate();
 System.out.println(JCalendar.getDate());// TODO add your handling code here:
 
 Methods method = new Methods();
-
+SerializeMethods serial = new SerializeMethods();
 
 
 try{
@@ -315,6 +399,12 @@ catch (SQLException ex) {
     }
     
 }
+
+
+    
+    serial.LoadNotes();
+    JTextAreaNotes.setText(serial.returnData);
+
 
 //JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));
         
@@ -376,7 +466,6 @@ catch (SQLException ex) {
        colName = JTableSchedule.getColumnName(columnIndex);
    
         
-        
            
         
         
@@ -411,9 +500,7 @@ catch (SQLException ex) {
        
    }
   
-  
- 
-    
+
   
   
   public  class TableListener implements TableModelListener  {
@@ -514,11 +601,16 @@ catch (SQLException ex) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar JCalendar;
     private javax.swing.JTable JTableSchedule;
+    private javax.swing.JTextArea JTextAreaNotes;
     private javax.swing.JPanel TablePanel;
+    private javax.swing.JPanel WeatherPanel;
     private javax.swing.JPanel WorkingsPanel;
+    private javax.swing.JLabel conditionsLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel tempLabel;
     // End of variables declaration//GEN-END:variables
 }
