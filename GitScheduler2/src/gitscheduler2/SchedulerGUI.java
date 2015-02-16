@@ -127,7 +127,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
             
            System.out.println("GUI.loadTableError");
         }
-      
+      JTableSchedule.getModel().addTableModelListener(new TableListener());
         }
         
         
@@ -164,11 +164,16 @@ public class SchedulerGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         conditionsLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        TablePanel.setBackground(new java.awt.Color(240, 229, 240));
+
         JTableSchedule.getModel().addTableModelListener(new TableListener());
-        JTableSchedule.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        JTableSchedule.setBackground(new java.awt.Color(240, 255, 255));
+        JTableSchedule.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
+        JTableSchedule.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         JTableSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -180,6 +185,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTableSchedule.setGridColor(new java.awt.Color(51, 51, 51));
         JTableSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JTableScheduleMouseClicked(evt);
@@ -210,9 +216,15 @@ public class SchedulerGUI extends javax.swing.JFrame {
         );
         TablePanelLayout.setVerticalGroup(
             TablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(TablePanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 112, Short.MAX_VALUE))
         );
 
+        WorkingsPanel.setBackground(new java.awt.Color(240, 229, 240));
+        WorkingsPanel.setForeground(new java.awt.Color(255, 246, 255));
+
+        JCalendar.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         JCalendar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 JCalendarFocusGained(evt);
@@ -247,8 +259,11 @@ public class SchedulerGUI extends javax.swing.JFrame {
             }
         });
 
+        JTextAreaNotes.setBackground(new java.awt.Color(240, 255, 255));
         JTextAreaNotes.setColumns(20);
+        JTextAreaNotes.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         JTextAreaNotes.setRows(5);
+        JTextAreaNotes.setBorder(null);
         jScrollPane2.setViewportView(JTextAreaNotes);
 
         jLabel1.setText("Weekly Notes");
@@ -259,7 +274,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -271,13 +286,11 @@ public class SchedulerGUI extends javax.swing.JFrame {
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(WorkingsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2))
-                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
-                        .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 239, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -300,35 +313,42 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
         conditionsLabel.setText("Could not load conditions.");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gitscheduler2/all.png"))); // NOI18N
+
         javax.swing.GroupLayout WeatherPanelLayout = new javax.swing.GroupLayout(WeatherPanel);
         WeatherPanel.setLayout(WeatherPanelLayout);
         WeatherPanelLayout.setHorizontalGroup(
             WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WeatherPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
                 .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(WeatherPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tempLabel))
-                    .addGroup(WeatherPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(conditionsLabel)))
-                .addContainerGap(786, Short.MAX_VALUE))
+                    .addComponent(conditionsLabel)
+                    .addComponent(tempLabel))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         WeatherPanelLayout.setVerticalGroup(
             WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WeatherPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tempLabel)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(conditionsLabel))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel4))
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tempLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(conditionsLabel))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -341,7 +361,7 @@ public class SchedulerGUI extends javax.swing.JFrame {
                     .addComponent(WorkingsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(WeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 323, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -373,6 +393,7 @@ try{
 method.getSelectedDb();
 //if (method.rs != null){
 JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));
+JTableSchedule.getModel().addTableModelListener(new TableListener());
 }
 catch (SQLException ex) {
  
@@ -382,7 +403,10 @@ catch (SQLException ex) {
         
         method.getDefaultSchedule();
         if (method.rs != null){
-        JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));}}
+        JTableSchedule.setModel(DbUtils.resultSetToTableModel(method.rs));}
+    JTableSchedule.getModel().addTableModelListener(new TableListener());
+    }
+        
     
      catch (SQLException ex1) {
         Logger.getLogger(SchedulerGUI.class.getName()).log(Level.SEVERE, null, ex1);
@@ -609,6 +633,7 @@ catch (SQLException ex) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel tempLabel;
