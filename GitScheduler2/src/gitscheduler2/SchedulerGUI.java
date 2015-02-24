@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -153,7 +154,16 @@ public class SchedulerGUI extends javax.swing.JFrame {
 
         TablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JTableSchedule = new javax.swing.JTable();
+        JTableSchedule = new javax.swing.JTable(){
+            boolean[] canEdit = new boolean[]{
+                false, true, true, true, true,true,true, true
+            };
+
+            public boolean isCellEditable(int d, int c){
+
+                return canEdit[c];
+            }
+        };
         WorkingsPanel = new javax.swing.JPanel();
         JCalendar = new com.toedter.calendar.JCalendar();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -528,6 +538,7 @@ catch (SQLException ex) {
   
   
   public  class TableListener implements TableModelListener  {
+
       
        @Override 
        public void tableChanged(TableModelEvent tme) {
@@ -535,8 +546,9 @@ catch (SQLException ex) {
                getColName();
         getPeriodNum();
         getNewData();
-         
-           
+
+      
+        
             System.out.println("DataChanged");
            Methods method = new Methods();
             try {
@@ -555,6 +567,9 @@ catch (SQLException ex) {
                    }
               
             }
+       
+       
+       
      } //end method
 
    //end class
@@ -601,12 +616,7 @@ catch (SQLException ex) {
         
         
         
-        
-        
-        
-        
-        
-        
+    
         
         
         

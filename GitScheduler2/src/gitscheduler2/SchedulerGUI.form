@@ -139,6 +139,7 @@
                 <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="JTableSchedulePropertyChange"/>
               </Events>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    boolean[] canEdit = new boolean[]{&#xa;        false, true, true, true, true,true,true, true&#xa;    };&#xa;&#xa;    public boolean isCellEditable(int d, int c){&#xa;&#xa;        return canEdit[c];&#xa;    }&#xa;}"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTableSchedule.getModel().addTableModelListener(new TableListener());"/>
               </AuxValues>
             </Component>
