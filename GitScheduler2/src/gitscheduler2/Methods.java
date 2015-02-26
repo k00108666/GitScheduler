@@ -33,8 +33,9 @@ public  class Methods {
      ResultSet rs;
     ResultSet rs2;
     String sql;
-  
-    
+    ResultSet locationRs;
+    String locationCode = "4118";
+    ResultSet codeRs;
     
     
     
@@ -50,7 +51,7 @@ public final void doConnect() {
              String user = "root";
              String pass = "nbuser";
              con = DriverManager.getConnection(host, user, pass);
-             
+            // stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
              
              
              
@@ -76,7 +77,7 @@ public final void doConnect() {
                  this.doConnect();
                
                  stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                //SchedulerGUI gui = new SchedulerGUI();
+              
                  Calendar cal = Calendar.getInstance();
                     cal.setTime(SchedulerGUI.date);
                  int WeekNum = cal.get(Calendar.WEEK_OF_YEAR);
@@ -110,8 +111,7 @@ public final void doConnect() {
          
                         this.doConnect();
                       stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                //SchedulerGUI gui = new SchedulerGUI();
-                 Calendar cal = Calendar.getInstance();
+                               Calendar cal = Calendar.getInstance();
                     cal.setTime(SchedulerGUI.date);
                  int WeekNum = cal.get(Calendar.WEEK_OF_YEAR);
                  int year = cal.get(Calendar.YEAR);
@@ -121,22 +121,11 @@ public final void doConnect() {
                  String selectedDb = "SELECT * FROM " + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
           
 
-            //String sql     = "UPDATE student SET firstName = ? "
-            //       + " Set lastName = ?, "
-            //       + " WHERE studentID = 456987";
               System.out.println(selectedDb);
              
             rs = stmt.executeQuery(selectedDb);
            
-                 //String selectedDb = "SELECT * FR0M ?" + Integer.toString(year) + "_week_" + Integer.toString(WeekNum);  
-                // System.out.println(selectedDb);
-                
-                 
-                // rs = pst.executeQuery();
-                 
-                 
-                 // rs = stmt.executeQuery(selectedDb);
-                  //System.out.print(rs);
+            
                     }
                     
                     
@@ -156,7 +145,7 @@ public final void doConnect() {
                  System.out.println(DatabaseString);
                 
                  rs = stmt.executeQuery(DatabaseString);
-                  System.out.print(rs);
+                 
                     }
                   
                  
@@ -193,17 +182,58 @@ public final void doConnect() {
                    
                }
                
-                     
+               
+               
+               
+               public void getAreas()  {
+                   
+       try {
+            this.doConnect();
+                stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);      
+           String sqlLocation = "SELECT * FROM weatherdatabase";
+        
+           // pst = con.prepareStatement(sqlLocation);
+           locationRs = stmt.executeQuery(sqlLocation);
+        
+       } catch (SQLException ex) {
+           Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
+       }
+                   
+               }
+               
+             
+               
+                       
+               public void getWOEID() {
+              
+                 
+                   
+       try {
+             this.doConnect();
+             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+              String locationSql = "SELECT code FROM weatherdatabase WHERE area = '" + SchedulerGUI.location+ "'";
+                      System.out.println(locationSql);
+         codeRs = stmt.executeQuery(locationSql);
+           if(codeRs.next()){
+               locationCode = codeRs.getString(1);
+           }
+            System.out.println("executed");
+       } catch (SQLException ex) {
+           Logger.getLogger(Methods.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("not executed");
+       }
                     
+}
+
+
+
+
+               
+               
              }
                      
                      
-                     
-               
-
-
-
-
+             
         
 
     

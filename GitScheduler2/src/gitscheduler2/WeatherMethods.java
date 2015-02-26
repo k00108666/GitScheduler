@@ -17,9 +17,11 @@ public class WeatherMethods {
     String condition;
     String measurement;
     public void getWeather() {
+        Methods method = new Methods();
+       method.getWOEID();
         
         
-        WeatherDoc doc = new WeatherDoc("1132463", "c");
+        WeatherDoc doc = new WeatherDoc(method.locationCode, "c");
         WeatherDisplay disp = new WeatherDisplay();
         
         temp = disp.getTemperature().toString();
