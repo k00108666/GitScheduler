@@ -123,7 +123,6 @@ public class SchedulerGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTableSchedule = new javax.swing.JTable();
         WorkingsPanel = new javax.swing.JPanel();
-        JCalendar = new com.toedter.calendar.JCalendar();
         JButtonLoad = new javax.swing.JButton();
         JNewButton = new javax.swing.JButton();
 
@@ -153,40 +152,6 @@ public class SchedulerGUI extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        JCalendar.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                JCalendarFocusGained(evt);
-            }
-        });
-        JCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JCalendarMouseClicked(evt);
-            }
-        });
-        JCalendar.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                JCalendarCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                JCalendarInputMethodTextChanged(evt);
-            }
-        });
-        JCalendar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                JCalendarPropertyChange(evt);
-            }
-        });
-        JCalendar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                JCalendarKeyPressed(evt);
-            }
-        });
-        JCalendar.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                JCalendarVetoableChange(evt);
-            }
-        });
-
         JButtonLoad.setText("Load Schedule");
         JButtonLoad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -212,20 +177,15 @@ public class SchedulerGUI extends javax.swing.JFrame {
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(WorkingsPanelLayout.createSequentialGroup()
-                        .addComponent(JButtonLoad)
-                        .addGap(36, 36, 36)
-                        .addComponent(JNewButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(JButtonLoad)
+                .addGap(36, 36, 36)
+                .addComponent(JNewButton)
+                .addContainerGap(614, Short.MAX_VALUE))
         );
         WorkingsPanelLayout.setVerticalGroup(
             WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkingsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(JCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(38, 38, 38)
                 .addGroup(WorkingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JButtonLoad)
                     .addComponent(JNewButton))
@@ -400,7 +360,6 @@ System.out.println(JCalendar.getDate());// TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonLoad;
-    private com.toedter.calendar.JCalendar JCalendar;
     private javax.swing.JButton JNewButton;
     private javax.swing.JTable JTableSchedule;
     private javax.swing.JPanel TablePanel;
